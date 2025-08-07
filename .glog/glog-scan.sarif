@@ -12,43 +12,7 @@
           "informationUri": "https://www.glog.ai",
           "rules": [
             {
-              "id": "glog-134ef4fd-18d5-4c7e-8217-ed53b65dfde5",
-              "help": {
-                "text": "",
-                "markdown": "## Description\n\n\"Prohibited C Function Identified\" is a vulnerability that occurs when a C++ program uses a function that is considered unsafe. These functions are often prohibited because they do not perform bounds checking, allowing for buffer overflow attacks. This can lead to arbitrary code execution, denial of service, or information disclosure.\n\nThe `COL_RED` sink in your code is not a function, but it seems like a constant or a macro. If it's a function that is considered unsafe, it should be replaced with a safer alternative.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, avoid using unsafe functions that do not perform bounds checking. Instead, use safer alternatives that are provided by the C++ Standard Library. Always validate and sanitize input data to prevent buffer overflow attacks.\n\n## Source Code Fix Recommendation\n\nWithout the actual code, it's hard to provide a specific fix. However, if `COL_RED` is a function, you should replace it with a safer alternative. If it's a constant or a macro, make sure it's used safely and does not lead to buffer overflow.\n\n## Library Dependencies\n\nWithout the actual code, it's hard to list the library dependencies. However, if you're using unsafe C functions, you're likely including the C Standard Library with `#include <cstdlib>`.\n\n## OWASP and CWE Links\n\n- [CWE-242: Use of Inherently Dangerous Function](https://cwe.mitre.org/data/definitions/242.html)\n\nPlease note that these links are subject to change and may not be available in the future. Always refer to the latest OWASP and CWE guidelines for up-to-date information."
-              },
-              "properties": {
-                "tags": [
-                  "DS154189"
-                ]
-              }
-            },
-            {
-              "id": "glog-bcc849d5-6620-4845-b9f3-0deea33eb1fb",
-              "help": {
-                "text": "",
-                "markdown": "## Description\n\nThe \"Prohibited C Function Identified\" vulnerability in C++ programming language refers to the use of certain C functions that are considered unsafe due to their potential to cause buffer overflow, format string vulnerabilities, or other security issues. In this case, the `printf` function is used, which can lead to format string vulnerabilities if the format string contains user-supplied data.\n\nFormat string vulnerabilities occur when the submitted data of an input string is evaluated as a command by the application. In this case, the application is vulnerable because it allows an attacker to view the stack, to overwrite data on the stack, or to execute arbitrary code.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, it is recommended to use safer versions of the function, such as `printf_s` or `snprintf`, which include the size of the buffer as a parameter to prevent buffer overflows. Also, avoid using user-supplied data in the format string of the `printf` function.\n\n## Source Code Fix Recommendation\n\nHere is a safer version of the code using `snprintf`:\n\n```cpp\nchar buffer[256];\nsnprintf(buffer, sizeof(buffer), \"%sFailed to get user name to check for %s group membership%s\\n\", COL_RED, kfd_gr_name, COL_RESET);\nprintf(\"%s\", buffer);\n```\n\n## Library Dependencies\n\nThe code example requires the following library dependencies:\n\n- `<stdio.h>` for `printf` and `snprintf` functions.\n- `<string.h>` if `COL_RED`, `kfd_gr_name`, and `COL_RESET` are string variables.\n\n## OWASP and CWE Links\n\n- [CWE-134: Use of Externally-Controlled Format String](https://cwe.mitre.org/data/definitions/134.html)\n\nPlease note that these links are active and accessible for anonymous users at the time of writing this report."
-              },
-              "properties": {
-                "tags": [
-                  "DS154189"
-                ]
-              }
-            },
-            {
-              "id": "glog-896afce0-cddc-43b7-9d34-ec72482385d5",
-              "help": {
-                "text": "",
-                "markdown": "## Description\n\nThe \"Detected Prohibited C Function\" vulnerability in C++ programming language refers to the use of potentially dangerous C library functions that can lead to various security issues such as buffer overflows, format string vulnerabilities, and others. In the provided code snippet, the `printf` function is used, which can lead to format string vulnerabilities if the format string contains user-supplied data.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, it is recommended to use safer alternatives to the `printf` function. For instance, consider using `fprintf` or `snprintf` which are safer as they limit the amount of data that can be written to the destination buffer, thus preventing buffer overflow vulnerabilities.\n\n## Source Code Fix Recommendation\n\nHere is a fixed version of the code snippet using `snprintf`:\n\n```cpp\nchar buffer[512];\nsnprintf(buffer, sizeof(buffer), \"%s%s is not member of \\\"%s\\\" group, the default DRM access \"\n     \"group. Users must be a member of the \\\"%s\\\" group or another\"\n        \" DRM access group in order for ROCm applications to run \"\n           \"successfully%s.\\n\", COL_RED, u_name, kfd_gr_name, kfd_gr_name, COL_RESET);\nputs(buffer);\n```\n\n## Library Dependencies\n\nThe code example requires the following library dependencies to execute properly:\n\n- `<stdio.h>`: for `printf` and `snprintf` functions.\n- `<stdlib.h>`: for `puts` function.\n\n## OWASP and CWE Links\n\n- [OWASP C++ Secure Coding Practices](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html)\n- [CWE-134: Use of Externally-Controlled Format String](https://cwe.mitre.org/data/definitions/134.html)"
-              },
-              "properties": {
-                "tags": [
-                  "DS154189"
-                ]
-              }
-            },
-            {
-              "id": "glog-7c634af5-fbd2-46bb-9bc7-ab17d906293e",
+              "id": "glog-931e5be3-ae24-48f9-8390-bd8c6a521a39",
               "help": {
                 "text": "",
                 "markdown": "## Description\n\n\"Detected Prohibited C Function\" vulnerability in C++ refers to the use of certain C standard library functions that are considered unsafe due to their potential to cause buffer overflows, format string vulnerabilities, or other issues. In this case, the `printf` function is used, which can lead to format string vulnerabilities if the format string contains user-supplied data.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, avoid using `printf` and similar functions that do not perform bounds checking or format string validation. Instead, use safer alternatives that do not have these issues. For example, consider using `snprintf` or `fprintf` with a fixed format string.\n\n## Source Code Fix Recommendation\n\nHere is a fixed version of the code:\n\n```cpp\nfprintf(stderr, \"%sFailed to get group info to check\"\n           \" for %s group membership%s\\n\", COL_RED, kfd_gr_name,\n           COL_RESET);\n```\n\n## Library Dependencies\n\nThe code example requires the following library dependencies:\n\n- `stdio.h` for `fprintf`\n- `stdlib.h` for `exit`\n\n## References\n\n- [OWASP C++ Secure Coding Practices](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html)\n- [CWE-676: Use of Potentially Dangerous Function](https://cwe.mitre.org/data/definitions/676.html)\n\nPlease note that the links provided are active and accessible to anonymous users at the time of writing."
@@ -60,7 +24,43 @@
               }
             },
             {
-              "id": "glog-821a966b-ca60-4048-925e-fd935d629a80",
+              "id": "glog-75916072-3814-451f-9a4c-ab435c193b97",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\n\"Prohibited C Function Identified\" is a vulnerability that occurs when a C++ program uses a function that is considered unsafe. These functions are often prohibited because they do not perform bounds checking, allowing for buffer overflow attacks. This can lead to arbitrary code execution, denial of service, or information disclosure.\n\nThe `COL_RED` sink in your code is not a function, but it seems like a constant or a macro. If it's a function that is considered unsafe, it should be replaced with a safer alternative.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, avoid using unsafe functions that do not perform bounds checking. Instead, use safer alternatives that are provided by the C++ Standard Library. Always validate and sanitize input data to prevent buffer overflow attacks.\n\n## Source Code Fix Recommendation\n\nWithout the actual code, it's hard to provide a specific fix. However, if `COL_RED` is a function, you should replace it with a safer alternative. If it's a constant or a macro, make sure it's used safely and does not lead to buffer overflow.\n\n## Library Dependencies\n\nWithout the actual code, it's hard to list the library dependencies. However, if you're using unsafe C functions, you're likely including the C Standard Library with `#include <cstdlib>`.\n\n## OWASP and CWE Links\n\n- [CWE-242: Use of Inherently Dangerous Function](https://cwe.mitre.org/data/definitions/242.html)\n\nPlease note that these links are subject to change and may not be available in the future. Always refer to the latest OWASP and CWE guidelines for up-to-date information."
+              },
+              "properties": {
+                "tags": [
+                  "DS154189"
+                ]
+              }
+            },
+            {
+              "id": "glog-2d918280-2b2f-4594-9b9d-6bf666869281",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\nThe \"Detected Prohibited C Function\" vulnerability in C++ programming language refers to the use of potentially dangerous C library functions that can lead to various security issues such as buffer overflows, format string vulnerabilities, and others. In the provided code snippet, the `printf` function is used, which can lead to format string vulnerabilities if the format string contains user-supplied data.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, it is recommended to use safer alternatives to the `printf` function. For instance, consider using `fprintf` or `snprintf` which are safer as they limit the amount of data that can be written to the destination buffer, thus preventing buffer overflow vulnerabilities.\n\n## Source Code Fix Recommendation\n\nHere is a fixed version of the code snippet using `snprintf`:\n\n```cpp\nchar buffer[512];\nsnprintf(buffer, sizeof(buffer), \"%s%s is not member of \\\"%s\\\" group, the default DRM access \"\n     \"group. Users must be a member of the \\\"%s\\\" group or another\"\n        \" DRM access group in order for ROCm applications to run \"\n           \"successfully%s.\\n\", COL_RED, u_name, kfd_gr_name, kfd_gr_name, COL_RESET);\nputs(buffer);\n```\n\n## Library Dependencies\n\nThe code example requires the following library dependencies to execute properly:\n\n- `<stdio.h>`: for `printf` and `snprintf` functions.\n- `<stdlib.h>`: for `puts` function.\n\n## OWASP and CWE Links\n\n- [OWASP C++ Secure Coding Practices](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html)\n- [CWE-134: Use of Externally-Controlled Format String](https://cwe.mitre.org/data/definitions/134.html)"
+              },
+              "properties": {
+                "tags": [
+                  "DS154189"
+                ]
+              }
+            },
+            {
+              "id": "glog-a1a7fcbd-6fc5-4677-bf35-0c41ad535ad9",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\nThe \"Prohibited C Function Identified\" vulnerability in C++ programming language refers to the use of certain C functions that are considered unsafe due to their potential to cause buffer overflow, format string vulnerabilities, or other security issues. In this case, the `printf` function is used, which can lead to format string vulnerabilities if the format string contains user-supplied data.\n\nFormat string vulnerabilities occur when the submitted data of an input string is evaluated as a command by the application. In this case, the application is vulnerable because it allows an attacker to view the stack, to overwrite data on the stack, or to execute arbitrary code.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, it is recommended to use safer versions of the function, such as `printf_s` or `snprintf`, which include the size of the buffer as a parameter to prevent buffer overflows. Also, avoid using user-supplied data in the format string of the `printf` function.\n\n## Source Code Fix Recommendation\n\nHere is a safer version of the code using `snprintf`:\n\n```cpp\nchar buffer[256];\nsnprintf(buffer, sizeof(buffer), \"%sFailed to get user name to check for %s group membership%s\\n\", COL_RED, kfd_gr_name, COL_RESET);\nprintf(\"%s\", buffer);\n```\n\n## Library Dependencies\n\nThe code example requires the following library dependencies:\n\n- `<stdio.h>` for `printf` and `snprintf` functions.\n- `<string.h>` if `COL_RED`, `kfd_gr_name`, and `COL_RESET` are string variables.\n\n## OWASP and CWE Links\n\n- [CWE-134: Use of Externally-Controlled Format String](https://cwe.mitre.org/data/definitions/134.html)\n\nPlease note that these links are active and accessible for anonymous users at the time of writing this report."
+              },
+              "properties": {
+                "tags": [
+                  "DS154189"
+                ]
+              }
+            },
+            {
+              "id": "glog-d2aed303-1340-492e-b49d-c07b514c89d4",
               "help": {
                 "text": "",
                 "markdown": "## Description\n\n\"Detected Prohibited C Function\" vulnerability refers to the use of insecure C library functions that can lead to various security issues such as buffer overflows, format string vulnerabilities, or integer overflows. In the provided code snippet, the function `fopen()` is used, which can lead to vulnerabilities if the file path is not properly validated or controlled, potentially leading to arbitrary file read vulnerabilities.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, it is recommended to use safer alternatives to these functions, or ensure proper validation and error handling is in place. In the case of `fopen()`, it is important to validate and control the file path that is being opened to prevent potential arbitrary file read vulnerabilities.\n\n## Source Code Fix Recommendation\n\n```cpp\n#include <fstream>\n\nstd::ifstream file;\nfile.open(filePath);\nif (!file) {\n    // Handle error\n}\n```\n\nIn this fixed code, we use the `ifstream` class from the `<fstream>` library, which is a safer alternative to `fopen()`. We also check if the file was successfully opened and handle the error if it was not.\n\n## Library Dependencies\n\nThe code example requires the following library dependencies:\n\n- `<stdio.h>` for `fopen()`\n\nThe fixed code requires the following library dependencies:\n\n- `<fstream>` for `std::ifstream`\n\n## References\n\n- [OWASP C++](https://owasp.org/www-pdf-archive/OWASP_SCP_v2.pdf)\n- [CWE-676: Use of Potentially Dangerous Function](https://cwe.mitre.org/data/definitions/676.html)"
@@ -72,7 +72,7 @@
               }
             },
             {
-              "id": "glog-5dd92a05-1669-4dc4-953d-9a1c11302885",
+              "id": "glog-355d9a5c-6997-4696-914d-1983488a5aaa",
               "help": {
                 "text": "",
                 "markdown": "## Description\n\n\"Detected Prohibited C Function\" vulnerability in C++ refers to the use of insecure or unsafe C library functions in the code. These functions are often prone to buffer overflow attacks, format string vulnerabilities, or other types of security issues. In this case, the function `getenv()` is used, which can lead to security vulnerabilities. The `getenv()` function returns a pointer to a string that is associated with the matched environment variable name. This can be exploited if an attacker can control the environment in which your program runs.\n\n## Mitigation Advice\n\nAvoid using the `getenv()` function if possible. If you must use it, ensure that the environment in which your program runs is secure. This means that environment variables cannot be controlled by an untrusted user. \n\n## Source Code Fix Recommendation\n\nInstead of using `getenv()`, consider using a safer alternative that does not have the same vulnerabilities. For example, you could use a configuration file that is read only by the user running the program, or use command line arguments for passing in configuration.\n\n```cpp\n// Instead of this:\n*var = getenv(\"HSA_ENABLE_DTIF\");\n\n// Consider this:\nstd::ifstream config_file(\"config.txt\");\nstd::string var;\nif (config_file.is_open())\n{\n    std::getline(config_file, var);\n    config_file.close();\n}\n```\n\n## Library Dependencies\n\nThe `getenv()` function is part of the C standard library, so you need to include `cstdlib` in your code.\n\n```cpp\n#include <cstdlib>\n```\n\n## OWASP Resources\n\n- [OWASP C++ Secure Coding Practices](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html)\n\n## Common Weakness Enumeration (CWE)\n\n- [CWE-676: Use of Potentially Dangerous Function](https://cwe.mitre.org/data/definitions/676.html)"
@@ -95,127 +95,7 @@
       "language": "en-US",
       "results": [
         {
-          "ruleId": "glog-134ef4fd-18d5-4c7e-8217-ed53b65dfde5",
-          "kind": "fail",
-          "level": "warning",
-          "message": {
-            "text": "\"Prohibited C Function Identified\""
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "rocminfo.cc"
-                },
-                "region": {
-                  "startLine": 1238,
-                  "startColumn": 18,
-                  "endLine": 1238,
-                  "endColumn": 26,
-                  "charOffset": 42646,
-                  "charLength": 8,
-                  "snippet": {
-                    "text": "strerror",
-                    "rendered": {
-                      "text": "strerror",
-                      "markdown": "`strerror`"
-                    }
-                  },
-                  "sourceLanguage": "cpp"
-                }
-              }
-            }
-          ],
-          "properties": {
-            "DevSkimSeverity": "Moderate",
-            "DevSkimConfidence": "High",
-            "tags": [
-              "API.DangerousAPI.BannedFunction"
-            ]
-          }
-        },
-        {
-          "ruleId": "glog-bcc849d5-6620-4845-b9f3-0deea33eb1fb",
-          "kind": "fail",
-          "level": "warning",
-          "message": {
-            "text": "\"Prohibited C Function Identified\""
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "rocminfo.cc"
-                },
-                "region": {
-                  "startLine": 1262,
-                  "startColumn": 4,
-                  "endLine": 1262,
-                  "endColumn": 10,
-                  "charOffset": 43299,
-                  "charLength": 6,
-                  "snippet": {
-                    "text": "printf",
-                    "rendered": {
-                      "text": "printf",
-                      "markdown": "`printf`"
-                    }
-                  },
-                  "sourceLanguage": "cpp"
-                }
-              }
-            }
-          ],
-          "properties": {
-            "DevSkimSeverity": "Moderate",
-            "DevSkimConfidence": "High",
-            "tags": [
-              "API.DangerousAPI.BannedFunction"
-            ]
-          }
-        },
-        {
-          "ruleId": "glog-896afce0-cddc-43b7-9d34-ec72482385d5",
-          "kind": "fail",
-          "level": "warning",
-          "message": {
-            "text": "Detected Prohibited C Function"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "rocminfo.cc"
-                },
-                "region": {
-                  "startLine": 1291,
-                  "startColumn": 4,
-                  "endLine": 1291,
-                  "endColumn": 10,
-                  "charOffset": 44178,
-                  "charLength": 6,
-                  "snippet": {
-                    "text": "printf",
-                    "rendered": {
-                      "text": "printf",
-                      "markdown": "`printf`"
-                    }
-                  },
-                  "sourceLanguage": "cpp"
-                }
-              }
-            }
-          ],
-          "properties": {
-            "DevSkimSeverity": "Moderate",
-            "DevSkimConfidence": "High",
-            "tags": [
-              "API.DangerousAPI.BannedFunction"
-            ]
-          }
-        },
-        {
-          "ruleId": "glog-7c634af5-fbd2-46bb-9bc7-ab17d906293e",
+          "ruleId": "glog-931e5be3-ae24-48f9-8390-bd8c6a521a39",
           "kind": "fail",
           "level": "warning",
           "message": {
@@ -255,7 +135,127 @@
           }
         },
         {
-          "ruleId": "glog-821a966b-ca60-4048-925e-fd935d629a80",
+          "ruleId": "glog-75916072-3814-451f-9a4c-ab435c193b97",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "\"Prohibited C Function Identified\""
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "rocminfo.cc"
+                },
+                "region": {
+                  "startLine": 1238,
+                  "startColumn": 18,
+                  "endLine": 1238,
+                  "endColumn": 26,
+                  "charOffset": 42646,
+                  "charLength": 8,
+                  "snippet": {
+                    "text": "strerror",
+                    "rendered": {
+                      "text": "strerror",
+                      "markdown": "`strerror`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "Moderate",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.BannedFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-2d918280-2b2f-4594-9b9d-6bf666869281",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Detected Prohibited C Function"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "rocminfo.cc"
+                },
+                "region": {
+                  "startLine": 1291,
+                  "startColumn": 4,
+                  "endLine": 1291,
+                  "endColumn": 10,
+                  "charOffset": 44178,
+                  "charLength": 6,
+                  "snippet": {
+                    "text": "printf",
+                    "rendered": {
+                      "text": "printf",
+                      "markdown": "`printf`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "Moderate",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.BannedFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-a1a7fcbd-6fc5-4677-bf35-0c41ad535ad9",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "\"Prohibited C Function Identified\""
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "rocminfo.cc"
+                },
+                "region": {
+                  "startLine": 1262,
+                  "startColumn": 4,
+                  "endLine": 1262,
+                  "endColumn": 10,
+                  "charOffset": 43299,
+                  "charLength": 6,
+                  "snippet": {
+                    "text": "printf",
+                    "rendered": {
+                      "text": "printf",
+                      "markdown": "`printf`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "Moderate",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.BannedFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-d2aed303-1340-492e-b49d-c07b514c89d4",
           "kind": "fail",
           "level": "warning",
           "message": {
@@ -295,7 +295,7 @@
           }
         },
         {
-          "ruleId": "glog-5dd92a05-1669-4dc4-953d-9a1c11302885",
+          "ruleId": "glog-355d9a5c-6997-4696-914d-1983488a5aaa",
           "kind": "fail",
           "level": "warning",
           "message": {
